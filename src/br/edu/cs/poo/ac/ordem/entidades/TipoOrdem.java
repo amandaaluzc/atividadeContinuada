@@ -1,6 +1,8 @@
 package br.edu.cs.poo.ac.ordem.entidades;
 
-public enum TipoOrdem {
+import java.io.Serializable;
+
+public enum TipoOrdem implements Serializable {
 	MANUTENCAO(1, "Manutenção"),
 	CONFIGURACAO(2, "Configuração"),
 	UPGRADE(3, "Upgrade");

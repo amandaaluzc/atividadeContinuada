@@ -1,6 +1,8 @@
 package br.edu.cs.poo.ac.ordem.entidades;
 
-public enum Dificuldade {
+import java.io.Serializable;
+
+public enum Dificuldade implements Serializable {
 	NORMAL(1, "Normal"),
 	DIFICIL(2, "Difícil");
 	

@@ -5,9 +5,9 @@ import java.time.LocalDateTime;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
+import lombok.AllArgsConstructor;
 
-@SuperBuilder
+@AllArgsConstructor
 @Getter
 @Setter
 
@@ -25,21 +25,33 @@ public class OrdemServico {
 		return dataAbertura.plusDays(prazoEmDias);
 	}
 	
-	/*
+	
 	public String getNumero () {
-		String horaString = dataHoraAbertura.toString();
-		LocalDate dataAbertura = dataHoraAbertura.toLocalDate();
-		String dataString = dataAbertura.toString();	
-		String stringConc = horaString + dataString;
+		String dataTotal = dataHoraAbertura.toString().replaceAll("\\D", "");
+		String dataConvertida = dataTotal.substring(0,12);
 		
-		String cnpjCpf = cliente.getCpfCnpj();
+		String idTipo = "";
+		if (notebook == null) {
+			idTipo = desktop.getIdTipo(); 
+		}
+		else {
+			idTipo = notebook.getIdTipo();
+		}
 		
+		
+		//String stringConc = horaString + dataString;		
+		String cnpjCpf = cliente.getCpfCnpj().replaceAll("\\D" , "");
+		String stringReturn = "";		
 		
 		
 		if (cnpjCpf.length() == 11){
-			String stringReturn =  stringConc + cnpjCpf + "000";
-			return stringReturn;
+			stringReturn +=  idTipo + dataConvertida + "000" + cnpjCpf;
 		}
+		else if (cnpjCpf.length() == 14) {
+			stringReturn +=  idTipo + dataConvertida + cnpjCpf;
+		}	
+		
+		return stringReturn;
 	}
-	*/
+	
 }

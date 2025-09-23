@@ -4,9 +4,9 @@ import java.time.LocalDate;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
+import lombok.AllArgsConstructor;
 
-@SuperBuilder
+@AllArgsConstructor
 @Getter
 @Setter
 

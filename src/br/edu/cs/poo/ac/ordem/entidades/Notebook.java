@@ -19,5 +19,11 @@ public class Notebook extends Equipamento{
 	public String getIdTipo() {
 		return "NO";
 	}
+
+
+	public static String getCodigo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }	

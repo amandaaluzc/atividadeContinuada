@@ -22,18 +22,18 @@ public class NotebookDAO extends DAOGenerico {
 		return (Notebook)cadastroObjetos.buscar(codigo);
 	}
 	
-	public boolean incluir(Notebook Notebook) {
-		if (buscar(getCodigo(Notebook)) == null) {
-			cadastroObjetos.incluir(Notebook, getCodigo(Notebook));
+	public boolean incluir(Notebook note) {
+		if (buscar(getCodigo(note)) == null) {
+			cadastroObjetos.incluir(note, getCodigo(note));
 			return true;
 		} else {
 			return false;
 		}
 	}
 	
-	public boolean alterar(Notebook Notebook) {
-		if (buscar(getCodigo(Notebook)) != null) {
-			cadastroObjetos.alterar(Notebook, getCodigo(Notebook));
+	public boolean alterar(Notebook note) {
+		if (buscar(getCodigo(note)) != null) {
+			cadastroObjetos.alterar(note, getCodigo(note));
 			return true;
 		} else {
 			return false;

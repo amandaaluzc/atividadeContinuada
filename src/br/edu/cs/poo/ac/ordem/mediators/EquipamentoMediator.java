@@ -14,6 +14,8 @@ public class EquipamentoMediator {
 	private final NotebookDAO notebookDAO = new NotebookDAO();
 	private final DesktopDAO desktopDAO = new DesktopDAO();
 	
+	private EquipamentoMediator() {};
+	
 	
 	public static EquipamentoMediator getInstancia() {
 		return INSTANCIA;

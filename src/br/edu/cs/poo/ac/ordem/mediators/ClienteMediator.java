@@ -14,6 +14,8 @@ public class ClienteMediator {
 	private static final ClienteMediator instancia = new ClienteMediator();
 	private final ClienteDAO clienteDAO = new ClienteDAO();
 	
+	private ClienteMediator() {};
+	
 	public static ClienteMediator getInstancia() {
 		return instancia;
 	}

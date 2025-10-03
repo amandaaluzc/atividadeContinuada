@@ -20,7 +20,7 @@ public class Contato implements Serializable {
 		return celular ;
 	}
 	
-	public final boolean getEhZap () {
+	public final boolean isEhZap () {
 		return ehZap;
 	}
 

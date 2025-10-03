@@ -24,7 +24,8 @@ public class TesteClienteMediator extends TesteAbstrato {
 	private static final String NAO_E_CPF_NEM_CNJP = "Não é CPF nem CNJP";
 	private static final String DATA_DO_CADASTRO_NAO_INFORMADA = "Data do cadastro não informada";
 	private static final String CONTATO_NAO_INFORMADO = "Contato não informado";
-	private static final String NOME_NAO_INFORMADO = "Nome não informado";	
+	private static final String NOME_NAO_INFORMADO = "Nome não informado";
+	private static final String STR_VAZIA = null;	
 	private ClienteMediator mediator = ClienteMediator.getInstancia();
 	public TesteClienteMediator() {
 		super(Cliente.class);

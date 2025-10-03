@@ -17,4 +17,8 @@ public class Desktop extends Equipamento {
 	public String getIdTipo () {
 		return "DE";
 	}
+	
+	public String tipoFixo() {
+		return getIdTipo() + getSerial();
+	}
 }

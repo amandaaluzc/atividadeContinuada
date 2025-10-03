@@ -19,6 +19,10 @@ public class Notebook extends Equipamento{
 	public String getIdTipo() {
 		return "NO";
 	}
+	
+	public String tipoFixo() {
+		return getIdTipo() + getSerial();
+	}
 
 
 	public static String getCodigo() {

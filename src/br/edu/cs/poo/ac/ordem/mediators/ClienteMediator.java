@@ -21,36 +21,38 @@ public class ClienteMediator {
 	public ResultadoMediator incluir(Cliente cliente) {
 		ResultadoMediator resultado = validar(cliente);
 		
-		if (resultado.isValidado() == false) {
-			return new ResultadoMediator(false, false, resultado.getMensagensErro());
+		if (resultado.isValidado() == true) {
+			if (buscar(cliente.getCpfCnpj()) == null) {
+				clienteDAO.incluir(cliente);
+				return new ResultadoMediator(true, true, resultado.getMensagensErro());
+			} else {
+				ListaString erro = new ListaString();
+				erro.adicionar("CPF/CNPJ já existente");
+				return new ResultadoMediator(true, false, erro);
+			}
 		}
+		return new ResultadoMediator(false, false, resultado.getMensagensErro());
 		
-		if (buscar(cliente.getCpfCnpj()) == null) {
-			clienteDAO.incluir(cliente);
-			return new ResultadoMediator(true, true, resultado.getMensagensErro());
-		} else {
-			ListaString erro = new ListaString();
-			erro.adicionar("CPF/CNPJ já existente");
-			return new ResultadoMediator(false, false, erro);
-		}
 	}
 	
 		
 	public ResultadoMediator alterar(Cliente cliente) {
 		ResultadoMediator resultado = validar(cliente);
 		
-		if (resultado.isValidado() == false) {
-			return new ResultadoMediator(false, false, resultado.getMensagensErro());
+		if (resultado.isValidado() == true) {
+
+			if (buscar(cliente.getCpfCnpj()) != null) {
+				clienteDAO.alterar(cliente);
+				return new ResultadoMediator(true, true, resultado.getMensagensErro());
+				
+			} else {
+				ListaString erro = new ListaString();
+				erro.adicionar("CPF/CNPJ inexistente");
+				return new ResultadoMediator(true, false, erro);
+			}
 		}
+		return new ResultadoMediator(false, false, resultado.getMensagensErro());
 		
-		if (buscar(cliente.getCpfCnpj()) != null) {
-			clienteDAO.alterar(cliente);
-			return new ResultadoMediator(true, true, resultado.getMensagensErro());
-		} else {
-			ListaString erro = new ListaString();
-			erro.adicionar("CPF/CNPJ inexistente");
-			return new ResultadoMediator(false, false, erro);
-		}
 	}
 	
 	public ResultadoMediator excluir(String cpfCnpj) {
@@ -162,8 +164,11 @@ public class ClienteMediator {
 						}
 					}
 				}
+				
+				
 		}
 		ResultadoMediator resultadoMediator = new ResultadoMediator(validado, operacaoRealizada, erros);
 		return resultadoMediator;
+		
 	}
 }

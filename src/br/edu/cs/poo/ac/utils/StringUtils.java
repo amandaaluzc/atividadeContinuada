@@ -14,12 +14,7 @@ public class StringUtils {
 	
 	public static boolean tamanhoExcedido(String str, int tamanho) {
 		if (tamanho > 0) {
-			if (str == null || str.trim().length() > tamanho) {
-				return true;
-			}
-			else {
-				return false;
-			}
+			return (str == null || str.trim().length() > tamanho);
 		}
 		else {
 			return false;
@@ -37,13 +32,7 @@ public class StringUtils {
 			
 			Pattern pattern = Pattern.compile(regex);
 			Matcher matcher = pattern.matcher(email);
-			
-			if (matcher.matches()) {
-				return true;
-			}
-			else {
-				return false;
-			}
+			return matcher.matches();
 		}	
 	}
 	
@@ -61,12 +50,7 @@ public class StringUtils {
 				Pattern pattern = Pattern.compile(regex);
 				Matcher matcher = pattern.matcher(tel);
 				
-				if (matcher.matches()) {
-					return true;
-				}
-				else {
-					return false;
-				}
+				return matcher.matches();
 			}
 			else {
 				return false;

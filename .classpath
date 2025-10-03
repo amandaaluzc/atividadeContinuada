@@ -12,7 +12,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-	<classpathentry kind="lib" path="C:/Users/amand/Downloads/PersistenciaObjetos.jar"/>
-	<classpathentry kind="lib" path="C:/Users/amand/Downloads/lombok.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Lucas/Downloads/PersistenciaObjetos.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Lucas/Downloads/lombok.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

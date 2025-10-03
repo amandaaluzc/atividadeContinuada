@@ -58,4 +58,13 @@ public class StringUtils {
 			
 		}
 	}
+	
+	public static boolean tamanhoMenor(String str, int tamanho) {
+		if (tamanho > 0) {
+			return (str == null || str.trim().length() < tamanho);
+		}
+		else {
+			return false;
+		}
+	}
 }

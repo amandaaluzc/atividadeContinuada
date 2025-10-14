@@ -11,6 +11,14 @@ public class ListaString {
     public int tamanho() {
     	return tamanho;
     }
+    
+    
+    public boolean isEmpty() {
+        return this.tamanho == 0;
+    }
+    
+    
+   
     public void adicionar(String str) {
         ElementoListaString novo = new ElementoListaString(str, null);
         if (primeiro == null) {
@@ -46,4 +54,27 @@ public class ListaString {
         }
         return resultado;
     }
+
+
+
+	@Override
+	public String toString() {
+	    if (isEmpty()) {
+	        return "";
+	    }
+	
+	    StringBuilder builder = new StringBuilder();
+	    ElementoListaString atual = primeiro;
+	    while (atual != null) {
+	        builder.append("- ").append(atual.getConteudo()).append("\n");
+	        atual = atual.getProximo();
+	    }
+	    
+	  
+	    if (builder.length() > 0) {
+	        builder.setLength(builder.length() - 1);
+	    }
+	
+	    return builder.toString();
+	}
 }

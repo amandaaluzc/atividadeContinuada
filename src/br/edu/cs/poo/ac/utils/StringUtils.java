@@ -37,26 +37,26 @@ public class StringUtils {
 	}
 	
 	public static boolean telefoneValido(String tel) {
-		if (tel == null || tel.trim().equals("")) {
-			return false;
-		}
-		
-		else {
-			String digitos = tel.replaceAll("[^0-9]","");
-			
-			if (digitos.length() == 11 || digitos.length() == 10 ) {
-				String regex = "^\\(\\d{2}\\)\\d{8,9}$";
-				
-				Pattern pattern = Pattern.compile(regex);
-				Matcher matcher = pattern.matcher(tel);
-				
-				return matcher.matches();
-			}
-			else {
-				return false;
-			}
-			
-		}
+	    if (tel == null || tel.trim().equals("")) {
+	        return false;
+	    }
+
+	    else {
+	        String digitos = tel.replaceAll("[^0-9]","");
+
+	        if (digitos.length() == 11 || digitos.length() == 10 ) {
+	            String regex = "^\\(\\d{2}\\)\\d{8,9}$";
+
+	            Pattern pattern = Pattern.compile(regex);
+	            Matcher matcher = pattern.matcher(tel);
+
+	            return matcher.matches();
+	        }
+	        else {
+	            return false;
+	        }
+
+	    }
 	}
 	
 	public static boolean tamanhoMenor(String str, int tamanho) {

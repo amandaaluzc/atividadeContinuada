@@ -16,7 +16,10 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import javax.swing.border.EmptyBorder;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 import javax.swing.text.MaskFormatter;
 
 import br.edu.cs.poo.ac.ordem.entidades.Cliente;
@@ -46,9 +49,33 @@ public class TelaCliente extends JFrame {
 
     private final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-	/**
-	 * Launch the application.
-	 */
+	// --- NOVA CLASSE INTERNA PARA FILTRAR A ENTRADA ---
+    // Este filtro garante que apenas 14 dígitos possam ser inseridos no campo.
+    private class CpfCnpjInputFilter extends DocumentFilter {
+        private final int MAX_DIGITS = 14;
+
+        @Override
+        public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+            replace(fb, offset, 0, string, attr);
+        }
+
+        @Override
+        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+            // Constrói como o texto ficaria após a alteração
+            String docText = fb.getDocument().getText(0, fb.getDocument().getLength());
+            StringBuilder futureText = new StringBuilder(docText);
+            futureText.replace(offset, offset + length, text);
+            
+            // Conta quantos dígitos a nova string teria
+            if (futureText.toString().replaceAll("\\D", "").length() <= MAX_DIGITS) {
+                // Se for menor ou igual a 14, permite a alteração
+                super.replace(fb, offset, length, text, attrs);
+            }
+            // Se for maior, a alteração é simplesmente ignorada.
+        }
+    }
+    // --- FIM DA NOVA CLASSE ---
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(() -> {
 			try {
@@ -60,9 +87,6 @@ public class TelaCliente extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public TelaCliente() {
 		if (!Beans.isDesignTime()) {
             try {
@@ -111,6 +135,11 @@ public class TelaCliente extends JFrame {
 
         txtCpfcnpj = new JTextField();
         txtCpfcnpj.setBounds(49, 46, 153, 21);
+        
+        // --- NOVA LINHA PARA ATIVAR O FILTRO ---
+        ((AbstractDocument) txtCpfcnpj.getDocument()).setDocumentFilter(new CpfCnpjInputFilter());
+        // --- FIM DA NOVA LINHA ---
+
         getContentPane().add(txtCpfcnpj);
         txtCpfcnpj.addFocusListener(new FocusAdapter() {
         	@Override
@@ -222,7 +251,6 @@ public class TelaCliente extends JFrame {
         setModo(Modo.INICIAL);
 
         btnNovo.addActionListener(e -> {
-            // --- CORREÇÃO APLICADA AQUI ---
             String id = txtCpfcnpj.getText().replaceAll("\\D", "");
 
             if (id.isEmpty()) {
@@ -230,7 +258,7 @@ public class TelaCliente extends JFrame {
                 return;
             }
             ClienteMediator med = ClienteMediator.getInstancia();
-            Cliente existente = med.buscar(id); // Agora busca com o valor limpo
+            Cliente existente = med.buscar(id);
             if (existente != null) {
                 JOptionPane.showMessageDialog(this, "Cliente já existente!");
                 return;
@@ -239,11 +267,8 @@ public class TelaCliente extends JFrame {
             setModo(Modo.NOVO);
         });
 
-        // Substitua o listener do seu botão Buscar por este:
         btnBuscar.addActionListener(e -> {
             if (Beans.isDesignTime()) return;
-            
-            // --- CORREÇÃO APLICADA AQUI ---
             String id = txtCpfcnpj.getText().replaceAll("\\D", "");
             
             if (id.isEmpty()) {
@@ -251,7 +276,7 @@ public class TelaCliente extends JFrame {
                 return;
             }
             ClienteMediator med = ClienteMediator.getInstancia();
-            Cliente cliente = med.buscar(id); // Agora busca com o valor limpo
+            Cliente cliente = med.buscar(id);
             if (cliente == null) {
                 JOptionPane.showMessageDialog(this, "Nenhum cliente encontrado.",
                         "Resultado da Busca", JOptionPane.WARNING_MESSAGE);
@@ -261,15 +286,12 @@ public class TelaCliente extends JFrame {
             setModo(Modo.EDICAO);
         });
         
-     // Substitua o listener do botão Adicionar por este:
         btnAdicionar.addActionListener(e -> {
             ClienteMediator addMediator = ClienteMediator.getInstancia();
             try {
-                LocalDate addData = LocalDate.parse(txtDataAtual.getText(), FMT);
+                LocalDate addData = LocalDate.parse(txtDataAtual.getText().trim(), FMT);
                 Contato addContato = new Contato(txtEmail.getText(), txtCelular.getText(), chkWhatsapp.isSelected());
                 
-                // --- CORREÇÃO APLICADA AQUI ---
-                // Pega o texto do campo e remove todos os caracteres não numéricos.
                 String cpfCnpjNumeros = txtCpfcnpj.getText().replaceAll("\\D", "");
                 
                 Cliente addCliente = new Cliente(cpfCnpjNumeros, txtNomeCompleto.getText(), addContato, addData);
@@ -288,14 +310,12 @@ public class TelaCliente extends JFrame {
             }
         });
 
-        // Substitua o listener do botão Alterar por este:
         btnAlterar.addActionListener(e -> {
             ClienteMediator altMediator = ClienteMediator.getInstancia();
             try {
-                LocalDate altData = LocalDate.parse(txtDataAtual.getText(), FMT);
+                LocalDate altData = LocalDate.parse(txtDataAtual.getText().trim(), FMT);
                 Contato altContato = new Contato(txtEmail.getText(), txtCelular.getText(), chkWhatsapp.isSelected());
                 
-                // --- CORREÇÃO APLICADA AQUI ---
                 String cpfCnpjNumeros = txtCpfcnpj.getText().replaceAll("\\D", "");
                 
                 Cliente altCliente = new Cliente(cpfCnpjNumeros, txtNomeCompleto.getText(), altContato, altData);
@@ -314,11 +334,8 @@ public class TelaCliente extends JFrame {
             }
         });
 
-        // Substitua o listener do botão Excluir por este:
         btnExcluir.addActionListener(e -> {
             ClienteMediator excMediator = ClienteMediator.getInstancia();
-            
-            // --- CORREÇÃO APLICADA AQUI ---
             String id = txtCpfcnpj.getText().replaceAll("\\D", "");
             
             if (id.isEmpty()) {
@@ -336,7 +353,6 @@ public class TelaCliente extends JFrame {
             }
         });
 
-        // Os listeners de Cancelar e Limpar permanecem os mesmos.
         btnCancelar.addActionListener(e -> setModo(Modo.INICIAL));
 
         btnLimpar.addActionListener(e -> {
@@ -344,40 +360,34 @@ public class TelaCliente extends JFrame {
             limparCamposDados();
         });
 	}
+    
     private void setModo(Modo modo) {
         switch (modo) {
             case INICIAL:
                 txtCpfcnpj.setEnabled(true);
-
                 txtNomeCompleto.setEnabled(false);
                 txtEmail.setEnabled(false);
                 txtCelular.setEnabled(false);
                 chkWhatsapp.setEnabled(false);
                 txtDataAtual.setEnabled(false);
-
                 btnNovo.setEnabled(true);
                 btnBuscar.setEnabled(true);
-
                 btnAdicionar.setEnabled(false);
                 btnAlterar.setEnabled(false);
                 btnExcluir.setEnabled(false);
                 btnCancelar.setEnabled(false);
                 btnLimpar.setEnabled(true);
-
                 txtCpfcnpj.setText("");
                 limparCamposDados();
                 txtDataAtual.setText(LocalDate.now().format(FMT));
                 break;
-
             case NOVO:
                 txtCpfcnpj.setEnabled(false);
-
                 txtNomeCompleto.setEnabled(true);
                 txtEmail.setEnabled(true);
                 txtCelular.setEnabled(true);
                 chkWhatsapp.setEnabled(true);
                 txtDataAtual.setEnabled(true);
-
                 btnNovo.setEnabled(false);
                 btnBuscar.setEnabled(false);
                 btnAdicionar.setEnabled(true);
@@ -386,16 +396,13 @@ public class TelaCliente extends JFrame {
                 btnCancelar.setEnabled(true);
                 btnLimpar.setEnabled(true);
                 break;
-
             case EDICAO:
                 txtCpfcnpj.setEnabled(false);
-
                 txtNomeCompleto.setEnabled(true);
                 txtEmail.setEnabled(true);
                 txtCelular.setEnabled(true);
                 chkWhatsapp.setEnabled(true);
                 txtDataAtual.setEnabled(true);
-
                 btnNovo.setEnabled(false);
                 btnBuscar.setEnabled(false);
                 btnAdicionar.setEnabled(false);
@@ -415,7 +422,18 @@ public class TelaCliente extends JFrame {
     }
 
     private void preencherTela(Cliente cliente) {
-        txtCpfcnpj.setText(safe(cliente.getCpfCnpj()));
+        String cpfCnpj = cliente.getCpfCnpj();
+        // Formata o CPF/CNPJ antes de exibir na tela
+        if (cpfCnpj != null) {
+            String digits = cpfCnpj.replaceAll("\\D", "");
+            if (digits.length() == 11) {
+                cpfCnpj = digits.substring(0, 3) + "." + digits.substring(3, 6) + "." + digits.substring(6, 9) + "-" + digits.substring(9);
+            } else if (digits.length() == 14) {
+                cpfCnpj = digits.substring(0, 2) + "." + digits.substring(2, 5) + "." + digits.substring(5, 8) + "/" + digits.substring(8, 12) + "-" + digits.substring(12);
+            }
+        }
+        txtCpfcnpj.setText(safe(cpfCnpj));
+
         txtNomeCompleto.setText(safe(cliente.getNome()));
         if (cliente.getContato() != null) {
             txtEmail.setText(safe(cliente.getContato().getEmail()));
@@ -426,7 +444,9 @@ public class TelaCliente extends JFrame {
             txtCelular.setText("");
             chkWhatsapp.setSelected(false);
         }
-        if (txtDataAtual.getText() == null || txtDataAtual.getText().trim().isEmpty()) {
+        if (cliente.getDataCadastro() != null) {
+            txtDataAtual.setText(cliente.getDataCadastro().format(FMT));
+        } else {
             txtDataAtual.setText(LocalDate.now().format(FMT));
         }
     }

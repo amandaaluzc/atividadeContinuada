@@ -49,37 +49,42 @@ public class ValidadorCPFCNPJ {
 	}
 	
 	public static ErroValidacaoCPFCNPJ validarCPF(String cpf) {
-		if (cpf == null || cpf.trim().equals("")) {
-			return ErroValidacaoCPFCNPJ.CPF_CNPJ_NULO_OU_BRANCO;
-		}
-		else if (ValidadorCPFCNPJ.isDigitoVerificadorValidoCPF(cpf) == false) {
-			return ErroValidacaoCPFCNPJ.CPF_CNPJ_COM_DV_INVALIDO;
-		}
-		else if (caracteresInvalidos(cpf)) {
-			return ErroValidacaoCPFCNPJ.CPF_CNPJ_COM_CARACTERES_INVALIDOS;
-		} else if (StringUtils.tamanhoExcedido(cpf, 11) == true || cpf.replaceAll("\\D", "").length() < 11) {
-			return ErroValidacaoCPFCNPJ.CPF_CNPJ_COM_TAMANHO_INVALIDO;			
-		} else {
-			return null;
-		}
-		
+	    if (cpf == null || cpf.trim().equals("")) {
+	        return ErroValidacaoCPFCNPJ.CPF_CNPJ_NULO_OU_BRANCO;
+	    }
+
+	    String cpfNumeros = cpf.replaceAll("\\D", "");
+
+	    if (cpfNumeros.length() != 11) {
+	        return ErroValidacaoCPFCNPJ.CPF_CNPJ_COM_TAMANHO_INVALIDO;
+	    }
+	    if (caracteresInvalidos(cpf)) { 
+	        return ErroValidacaoCPFCNPJ.CPF_CNPJ_COM_CARACTERES_INVALIDOS;
+	    }
+	    if (!ValidadorCPFCNPJ.isDigitoVerificadorValidoCPF(cpfNumeros)) { 
+	        return ErroValidacaoCPFCNPJ.CPF_CNPJ_COM_DV_INVALIDO;
+	    } 
+	    
+	    return null; 
 	}
 	public static ErroValidacaoCPFCNPJ validarCNPJ(String cnpj) {
-		if (cnpj == null || cnpj.trim().equals("")) {
-			return ErroValidacaoCPFCNPJ.CPF_CNPJ_NULO_OU_BRANCO;
-		}
-		if (ValidadorCPFCNPJ.isDigitoVerificadorValidoCNPJ(cnpj) == false) {
-			return ErroValidacaoCPFCNPJ.CPF_CNPJ_COM_DV_INVALIDO;
-		}
-		if (caracteresInvalidos(cnpj)) {
-			return ErroValidacaoCPFCNPJ.CPF_CNPJ_COM_CARACTERES_INVALIDOS;
-		}
-		if (StringUtils.tamanhoExcedido(cnpj, 14) == true || cnpj.replaceAll("\\D", "").length() < 14) {
-			return ErroValidacaoCPFCNPJ.CPF_CNPJ_COM_TAMANHO_INVALIDO;			
-		} 
-		else {
-			return null;
-		}
+	    if (cnpj == null || cnpj.trim().equals("")) {
+	        return ErroValidacaoCPFCNPJ.CPF_CNPJ_NULO_OU_BRANCO;
+	    }
+
+	    String cnpjNumeros = cnpj.replaceAll("\\D", "");
+
+	    if (cnpjNumeros.length() != 14) {
+	        return ErroValidacaoCPFCNPJ.CPF_CNPJ_COM_TAMANHO_INVALIDO;
+	    }
+	    if (caracteresInvalidos(cnpj)) {
+	        return ErroValidacaoCPFCNPJ.CPF_CNPJ_COM_CARACTERES_INVALIDOS;
+	    }
+	    if (!ValidadorCPFCNPJ.isDigitoVerificadorValidoCNPJ(cnpjNumeros)) { 
+	        return ErroValidacaoCPFCNPJ.CPF_CNPJ_COM_DV_INVALIDO;
+	    }
+
+	    return null; 
 	}
 	
 	private static boolean isDigitoVerificadorValidoCPF(String cpf) {

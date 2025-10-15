@@ -1,4 +1,4 @@
-package br.edu.cs.poo.ac.ordem.gui;
+package br.edu.cs.poo.ac.ordem.telas;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -78,12 +78,8 @@ public class TelaEquipamento extends JFrame {
         getContentPane().setLayout(null);
         getContentPane().setBackground(Color.WHITE);
 
-        JLabel lblAcesso = new JLabel("Acesso:");
-        lblAcesso.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
-        lblAcesso.setBounds(20, 10, 100, 18);
-        getContentPane().add(lblAcesso);
-
         JLabel lblTipo = new JLabel("Tipo de Equipamento");
+        lblTipo.setFont(new Font("Tahoma", Font.BOLD, 13));
         lblTipo.setBounds(20, 35, 160, 18);
         getContentPane().add(lblTipo);
 
@@ -93,6 +89,7 @@ public class TelaEquipamento extends JFrame {
         getContentPane().add(cbTipo);
 
         JLabel lblSerial = new JLabel("Serial");
+        lblSerial.setFont(new Font("Tahoma", Font.BOLD, 13));
         lblSerial.setBounds(220, 35, 80, 18);
         getContentPane().add(lblSerial);
 
@@ -108,12 +105,8 @@ public class TelaEquipamento extends JFrame {
         btnBuscar.setBounds(510, 55, 90, 24);
         getContentPane().add(btnBuscar);
 
-        JLabel lblDados = new JLabel("Dados:");
-        lblDados.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
-        lblDados.setBounds(20, 90, 100, 18);
-        getContentPane().add(lblDados);
-
         JLabel lblDescricao = new JLabel("Descrição");
+        lblDescricao.setFont(new Font("Tahoma", Font.BOLD, 13));
         lblDescricao.setBounds(20, 112, 100, 18);
         getContentPane().add(lblDescricao);
 
@@ -125,11 +118,14 @@ public class TelaEquipamento extends JFrame {
         getContentPane().add(spDesc);
 
         JLabel lblENovo = new JLabel("É novo?");
+        lblENovo.setFont(new Font("Tahoma", Font.BOLD, 13));
         lblENovo.setBounds(20, 210, 60, 18);
         getContentPane().add(lblENovo);
 
         rbNovoNao = new JRadioButton("NÃO", true);
+        rbNovoNao.setFont(new Font("Tahoma", Font.BOLD, 13));
         rbNovoSim = new JRadioButton("SIM");
+        rbNovoSim.setFont(new Font("Tahoma", Font.BOLD, 13));
         rbNovoNao.setBackground(Color.WHITE);
         rbNovoSim.setBackground(Color.WHITE);
 
@@ -144,7 +140,8 @@ public class TelaEquipamento extends JFrame {
         getContentPane().add(rbNovoSim);
 
         JLabel lblValor = new JLabel("Valor estimado");
-        lblValor.setBounds(230, 210, 120, 18);
+        lblValor.setFont(new Font("Tahoma", Font.BOLD, 13));
+        lblValor.setBounds(220, 210, 120, 18);
         getContentPane().add(lblValor);
 
         txtValor = new JFormattedTextField();
@@ -159,7 +156,8 @@ public class TelaEquipamento extends JFrame {
         panelNotebook.setBorder(BorderFactory.createTitledBorder("Notebook"));
 
         JLabel lblSens = new JLabel("Carrega dados sensíveis?");
-        lblSens.setBounds(12, 18, 170, 20);
+        lblSens.setFont(new Font("Tahoma", Font.BOLD, 13));
+        lblSens.setBounds(12, 17, 170, 20);
         panelNotebook.add(lblSens);
 
         rbSensNao = new JRadioButton("NÃO", true);
@@ -230,12 +228,12 @@ public class TelaEquipamento extends JFrame {
 
         btnCancelar = new JButton("Cancelar");
         btnCancelar.setFont(btnFont);
-        btnCancelar.setBounds(365, 310, 110, 32);
+        btnCancelar.setBounds(490, 310, 110, 32);
         getContentPane().add(btnCancelar);
 
         btnLimpar = new JButton("Limpar");
         btnLimpar.setFont(btnFont);
-        btnLimpar.setBounds(490, 310, 110, 32);
+        btnLimpar.setBounds(368, 310, 110, 32);
         getContentPane().add(btnLimpar);
 
         setModo(Modo.INICIAL);

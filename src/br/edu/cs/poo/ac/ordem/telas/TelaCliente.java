@@ -1,4 +1,4 @@
-package br.edu.cs.poo.ac.ordem.gui;
+package br.edu.cs.poo.ac.ordem.telas;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -26,6 +26,7 @@ import br.edu.cs.poo.ac.ordem.mediators.ResultadoMediator;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 
 public class TelaCliente extends JFrame {
 
@@ -77,44 +78,39 @@ public class TelaCliente extends JFrame {
         getContentPane().setLayout(null);
         getContentPane().setBackground(Color.WHITE);
 
-        JLabel lblGeral = new JLabel("Geral:");
-        lblGeral.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
-        lblGeral.setBounds(20, 10, 70, 23);
-        getContentPane().add(lblGeral);
-
-        JLabel lblContato = new JLabel("Contato:");
-        lblContato.setFont(new Font("SansSerif", Font.PLAIN, 12));
-        lblContato.setBounds(286, 16, 80, 17);
-        getContentPane().add(lblContato);
-
         JLabel lblNomeCompleto = new JLabel("Nome Completo");
-        lblNomeCompleto.setBounds(20, 96, 104, 17);
+        lblNomeCompleto.setFont(new Font("Tahoma", Font.BOLD, 13));
+        lblNomeCompleto.setBounds(49, 83, 104, 17);
         getContentPane().add(lblNomeCompleto);
 
         JLabel lblCpfcnpj = new JLabel("CPF/CNPJ");
-        lblCpfcnpj.setBounds(20, 41, 80, 17);
+        lblCpfcnpj.setFont(new Font("Tahoma", Font.BOLD, 13));
+        lblCpfcnpj.setBounds(49, 23, 80, 17);
         getContentPane().add(lblCpfcnpj);
 
         JLabel lblEmail = new JLabel("E-mail");
-        lblEmail.setBounds(276, 41, 54, 17);
+        lblEmail.setFont(new Font("Tahoma", Font.BOLD, 13));
+        lblEmail.setBounds(297, 28, 54, 17);
         getContentPane().add(lblEmail);
 
         JLabel lblCelular = new JLabel("Celular");
-        lblCelular.setBounds(276, 96, 54, 17);
+        lblCelular.setFont(new Font("Tahoma", Font.BOLD, 13));
+        lblCelular.setBounds(297, 83, 54, 17);
         getContentPane().add(lblCelular);
 
         JLabel lblDataDoCadastro = new JLabel("Data do cadastro:");
-        lblDataDoCadastro.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 11));
-        lblDataDoCadastro.setBounds(20, 168, 122, 29);
+        lblDataDoCadastro.setHorizontalAlignment(SwingConstants.LEFT);
+        lblDataDoCadastro.setFont(new Font("Tahoma", Font.BOLD, 13));
+        lblDataDoCadastro.setBounds(49, 140, 122, 29);
         getContentPane().add(lblDataDoCadastro);
 
         txtNomeCompleto = new JTextField();
         txtNomeCompleto.setToolTipText("Digite o nome completo do cliente");
-        txtNomeCompleto.setBounds(20, 124, 221, 21);
+        txtNomeCompleto.setBounds(49, 106, 153, 21);
         getContentPane().add(txtNomeCompleto);
 
         txtCpfcnpj = new JTextField();
-        txtCpfcnpj.setBounds(20, 64, 221, 21);
+        txtCpfcnpj.setBounds(49, 46, 153, 21);
         getContentPane().add(txtCpfcnpj);
         txtCpfcnpj.addFocusListener(new FocusAdapter() {
         	@Override
@@ -135,7 +131,7 @@ public class TelaCliente extends JFrame {
 
         txtEmail = new JTextField();
         txtEmail.setToolTipText("Digite email do cliente");
-        txtEmail.setBounds(276, 64, 207, 21);
+        txtEmail.setBounds(297, 51, 153, 21);
         getContentPane().add(txtEmail);
 
         txtCelular = new JTextField();
@@ -153,22 +149,23 @@ public class TelaCliente extends JFrame {
         	}
         });
         txtCelular.setToolTipText("Digite o celular do cliente");
-        txtCelular.setBounds(276, 119, 207, 21);
+        txtCelular.setBounds(297, 106, 153, 21);
         getContentPane().add(txtCelular);
 
         chkWhatsapp = new JCheckBox("é WhatsApp?");
         chkWhatsapp.setBackground(Color.WHITE);
-        chkWhatsapp.setBounds(276, 146, 110, 17);
+        chkWhatsapp.setBounds(297, 136, 110, 17);
         getContentPane().add(chkWhatsapp);
 
         try {
             MaskFormatter mf = new MaskFormatter("##/##/####");
             txtDataAtual = new JFormattedTextField(mf);
+            txtDataAtual.setHorizontalAlignment(SwingConstants.CENTER);
         } catch (Exception ex) {
             txtDataAtual = new JFormattedTextField();
         }
         txtDataAtual.setToolTipText("Data Atual");
-        txtDataAtual.setBounds(20, 203, 112, 21);
+        txtDataAtual.setBounds(49, 169, 122, 21);
         getContentPane().add(txtDataAtual);
 
         if (!Beans.isDesignTime()) {
@@ -180,46 +177,46 @@ public class TelaCliente extends JFrame {
 
         Font btnFont = new Font(Font.SANS_SERIF, Font.BOLD, 12);
 
-        btnNovo = new JButton("NOVO");
+        btnNovo = new JButton("Novo");
         btnNovo.setFont(btnFont);
         btnNovo.setForeground(Color.BLACK);
-        btnNovo.setBounds(20, 230, 95, 30);
+        btnNovo.setBounds(36, 222, 100, 30);
         getContentPane().add(btnNovo);
 
-        btnBuscar = new JButton("BUSCAR");
+        btnBuscar = new JButton("Buscar");
         btnBuscar.setFont(btnFont);
         btnBuscar.setForeground(Color.BLACK);
-        btnBuscar.setBounds(120, 230, 105, 30);
+        btnBuscar.setBounds(262, 222, 100, 30);
         getContentPane().add(btnBuscar);
 
-        btnAdicionar = new JButton("ADICIONAR");
+        btnAdicionar = new JButton("Adicionar");
         btnAdicionar.setFont(btnFont);
         btnAdicionar.setForeground(Color.BLACK);
-        btnAdicionar.setBounds(230, 230, 120, 30);
+        btnAdicionar.setBounds(150, 222, 100, 30);
         getContentPane().add(btnAdicionar);
 
-        btnAlterar = new JButton("ALTERAR");
+        btnAlterar = new JButton("Alterar");
         btnAlterar.setFont(btnFont);
         btnAlterar.setForeground(Color.BLACK);
-        btnAlterar.setBounds(355, 230, 95, 30);
+        btnAlterar.setBounds(374, 222, 100, 30);
         getContentPane().add(btnAlterar);
 
-        btnExcluir = new JButton("EXCLUIR");
+        btnExcluir = new JButton("Excluir");
         btnExcluir.setFont(btnFont);
         btnExcluir.setForeground(Color.BLACK);
-        btnExcluir.setBounds(20, 265, 95, 30);
+        btnExcluir.setBounds(209, 258, 100, 30);
         getContentPane().add(btnExcluir);
 
-        btnCancelar = new JButton("CANCELAR");
+        btnCancelar = new JButton("Cancelar");
         btnCancelar.setFont(btnFont);
         btnCancelar.setForeground(Color.BLACK);
-        btnCancelar.setBounds(120, 265, 105, 30);
+        btnCancelar.setBounds(334, 258, 100, 30);
         getContentPane().add(btnCancelar);
 
-        btnLimpar = new JButton("LIMPAR");
+        btnLimpar = new JButton("Limpar");
         btnLimpar.setFont(btnFont);
         btnLimpar.setForeground(Color.BLACK);
-        btnLimpar.setBounds(230, 265, 120, 30);
+        btnLimpar.setBounds(82, 258, 100, 30);
         getContentPane().add(btnLimpar);
 
         setModo(Modo.INICIAL);

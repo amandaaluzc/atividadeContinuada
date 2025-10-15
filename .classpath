@@ -11,10 +11,8 @@
 			<attribute name="optional" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-	<classpathentry kind="lib" path="C:/Users/amand/Downloads/PersistenciaObjetos.jar"/>
-	<classpathentry kind="lib" path="C:/Users/amand/Downloads/lombok.jar"/>
-	<classpathentry kind="lib" path="com.jgoodies.forms_1.9.0.v20240327-0800.jar"/>
-	<classpathentry kind="lib" path="com.jgoodies.common_1.8.1.v20240327-0800.jar"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="lib" path="C:/Users/Lucas/Downloads/lombok.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Lucas/Downloads/PersistenciaObjetos.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

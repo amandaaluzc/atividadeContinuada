@@ -222,13 +222,15 @@ public class TelaCliente extends JFrame {
         setModo(Modo.INICIAL);
 
         btnNovo.addActionListener(e -> {
-            String id = txtCpfcnpj.getText().trim();
+            // --- CORREÇÃO APLICADA AQUI ---
+            String id = txtCpfcnpj.getText().replaceAll("\\D", "");
+
             if (id.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "CPF/CNPJ deve ser preenchido!");
                 return;
             }
             ClienteMediator med = ClienteMediator.getInstancia();
-            Cliente existente = med.buscar(id);
+            Cliente existente = med.buscar(id); // Agora busca com o valor limpo
             if (existente != null) {
                 JOptionPane.showMessageDialog(this, "Cliente já existente!");
                 return;
@@ -237,15 +239,19 @@ public class TelaCliente extends JFrame {
             setModo(Modo.NOVO);
         });
 
+        // Substitua o listener do seu botão Buscar por este:
         btnBuscar.addActionListener(e -> {
             if (Beans.isDesignTime()) return;
-            String id = txtCpfcnpj.getText().trim();
+            
+            // --- CORREÇÃO APLICADA AQUI ---
+            String id = txtCpfcnpj.getText().replaceAll("\\D", "");
+            
             if (id.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "CPF/CNPJ deve ser preenchido!");
                 return;
             }
             ClienteMediator med = ClienteMediator.getInstancia();
-            Cliente cliente = med.buscar(id);
+            Cliente cliente = med.buscar(id); // Agora busca com o valor limpo
             if (cliente == null) {
                 JOptionPane.showMessageDialog(this, "Nenhum cliente encontrado.",
                         "Resultado da Busca", JOptionPane.WARNING_MESSAGE);
@@ -254,13 +260,19 @@ public class TelaCliente extends JFrame {
             preencherTela(cliente);
             setModo(Modo.EDICAO);
         });
-
+        
+     // Substitua o listener do botão Adicionar por este:
         btnAdicionar.addActionListener(e -> {
-        	ClienteMediator addMediator = ClienteMediator.getInstancia();
-        	try {
+            ClienteMediator addMediator = ClienteMediator.getInstancia();
+            try {
                 LocalDate addData = LocalDate.parse(txtDataAtual.getText(), FMT);
                 Contato addContato = new Contato(txtEmail.getText(), txtCelular.getText(), chkWhatsapp.isSelected());
-                Cliente addCliente = new Cliente(txtCpfcnpj.getText().trim(), txtNomeCompleto.getText(), addContato, addData);
+                
+                // --- CORREÇÃO APLICADA AQUI ---
+                // Pega o texto do campo e remove todos os caracteres não numéricos.
+                String cpfCnpjNumeros = txtCpfcnpj.getText().replaceAll("\\D", "");
+                
+                Cliente addCliente = new Cliente(cpfCnpjNumeros, txtNomeCompleto.getText(), addContato, addData);
                 ResultadoMediator addResultado = addMediator.incluir(addCliente);
 
                 if(!addResultado.isOperacaoRealizada()) {
@@ -276,12 +288,17 @@ public class TelaCliente extends JFrame {
             }
         });
 
+        // Substitua o listener do botão Alterar por este:
         btnAlterar.addActionListener(e -> {
-        	ClienteMediator altMediator = ClienteMediator.getInstancia();
-        	try {
+            ClienteMediator altMediator = ClienteMediator.getInstancia();
+            try {
                 LocalDate altData = LocalDate.parse(txtDataAtual.getText(), FMT);
                 Contato altContato = new Contato(txtEmail.getText(), txtCelular.getText(), chkWhatsapp.isSelected());
-                Cliente altCliente = new Cliente(txtCpfcnpj.getText().trim(), txtNomeCompleto.getText(), altContato, altData);
+                
+                // --- CORREÇÃO APLICADA AQUI ---
+                String cpfCnpjNumeros = txtCpfcnpj.getText().replaceAll("\\D", "");
+                
+                Cliente altCliente = new Cliente(cpfCnpjNumeros, txtNomeCompleto.getText(), altContato, altData);
                 ResultadoMediator altResultado = altMediator.alterar(altCliente);
 
                 if(!altResultado.isOperacaoRealizada()) {
@@ -297,32 +314,36 @@ public class TelaCliente extends JFrame {
             }
         });
 
+        // Substitua o listener do botão Excluir por este:
         btnExcluir.addActionListener(e -> {
-        	ClienteMediator excMediator = ClienteMediator.getInstancia();
-        	String id = txtCpfcnpj.getText().trim();
+            ClienteMediator excMediator = ClienteMediator.getInstancia();
+            
+            // --- CORREÇÃO APLICADA AQUI ---
+            String id = txtCpfcnpj.getText().replaceAll("\\D", "");
+            
             if (id.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Informe o CPF/CNPJ para excluir.", "Atenção", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-        	ResultadoMediator resExcCliente = excMediator.excluir(id);
-        	if(!resExcCliente.isOperacaoRealizada()) {
-        		String excErros = "Operação não realizada pois:";
-        		for(String m : resExcCliente.getMensagensErro().listar()) excErros += "\n" + m;
-        		JOptionPane.showMessageDialog(this, excErros, "Resultado da Exclusão", JOptionPane.WARNING_MESSAGE);
-        	} else {
-        		JOptionPane.showMessageDialog(this, "Exclusão realizada com sucesso!", "Resultado da Exclusão", JOptionPane.INFORMATION_MESSAGE);
+            ResultadoMediator resExcCliente = excMediator.excluir(id);
+            if(!resExcCliente.isOperacaoRealizada()) {
+                String excErros = "Operação não realizada pois:";
+                for(String m : resExcCliente.getMensagensErro().listar()) excErros += "\n" + m;
+                JOptionPane.showMessageDialog(this, excErros, "Resultado da Exclusão", JOptionPane.WARNING_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Exclusão realizada com sucesso!", "Resultado da Exclusão", JOptionPane.INFORMATION_MESSAGE);
                 setModo(Modo.INICIAL);
-        	}
+            }
         });
 
+        // Os listeners de Cancelar e Limpar permanecem os mesmos.
         btnCancelar.addActionListener(e -> setModo(Modo.INICIAL));
 
         btnLimpar.addActionListener(e -> {
             if (txtCpfcnpj.isEnabled()) txtCpfcnpj.setText("");
             limparCamposDados();
         });
-    }
-
+	}
     private void setModo(Modo modo) {
         switch (modo) {
             case INICIAL:

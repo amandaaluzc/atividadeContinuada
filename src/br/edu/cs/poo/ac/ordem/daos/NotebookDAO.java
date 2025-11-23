@@ -1,65 +1,37 @@
 package br.edu.cs.poo.ac.ordem.daos;
-
 import java.io.Serializable;
 
 import br.edu.cs.poo.ac.ordem.entidades.Notebook;
+import br.edu.cs.poo.ac.utils.Registro;
 
 //O identificador único, por objeto, de Notebook é a concatenação do retorno 
-//do método getTipo com o atributo serial.  
+//do método getTipo com o atributo serial.
+public class NotebookDAO extends DAOGenerico{
+    @Override
+    public Class<?> getClasseEntidade() {
+        return Notebook.class;
+    }
 
+    public Notebook buscar(String id) {
+        return (Notebook) super.buscar(id);
+    }
 
-public class NotebookDAO extends DAOGenerico {
-	
-	public NotebookDAO() {
-		super(Notebook.class);
-	}
-	
-	private String getCodigo(Notebook note) {
-		return note.getIdTipo() + note.getSerial(); 
-	}
-	
-	public Notebook buscar(String codigo) {
-		return (Notebook)cadastroObjetos.buscar(codigo);
-	}
-	
-	public boolean incluir(Notebook note) {
-		if (buscar(getCodigo(note)) == null) {
-			cadastroObjetos.incluir(note, getCodigo(note));
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	public boolean alterar(Notebook note) {
-		if (buscar(getCodigo(note)) != null) {
-			cadastroObjetos.alterar(note, getCodigo(note));
-			return true;
-		} else {
-			return false;
-		}
-	}
+    public boolean incluir(Notebook note) {
+        return super.incluir(note);
+    }
 
-	public boolean excluir (String codigo) {
-		if (buscar(codigo) != null) {
-			cadastroObjetos.excluir(codigo);
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	public Notebook[] buscarTodos() {
-		Serializable[] ret = cadastroObjetos.buscarTodos();
-		Notebook[] retorno;
-		if (ret != null && ret.length > 0) {
-			retorno = new Notebook[ret.length];
-			for (int i = 0; i < ret.length; i++) {
-				retorno[i] = (Notebook)ret[i];
-			}
-		} else {
-			retorno = new Notebook[0];
-		}
-		return retorno;
-	}
+    public boolean alterar(Notebook note) {
+        return super.alterar(note);
+    }
+
+    public boolean excluir(Notebook note) {
+        return super.excluir(note);
+    }
+
+    public Notebook[] buscarTodos() {
+        Registro[] rs = super.buscarTodos();
+        Notebook[] out = new Notebook[rs.length];
+        for (int i = 0; i < rs.length; i++) out[i] = (Notebook) rs[i];
+        return out;
+    }
 }

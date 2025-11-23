@@ -1,9 +1,9 @@
 package br.edu.cs.poo.ac.ordem.entidades;
-import java.io.Serializable;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-
+import br.edu.cs.poo.ac.utils.Registro;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
 @Getter
 @Setter
 
-public class OrdemServico implements Serializable{
+public class OrdemServico implements Registro{
 	private Cliente cliente;
 	private PrecoBase precoBase;
 	private Notebook notebook;
@@ -55,4 +55,8 @@ public class OrdemServico implements Serializable{
 		return stringReturn;
 	}
 	
+	@Override
+	public String getId() {
+		return getNumero();	
+	}
 }

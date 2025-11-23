@@ -1,5 +1,4 @@
 package br.edu.cs.poo.ac.ordem.daos;
-import java.io.Serializable;
 
 import br.edu.cs.poo.ac.ordem.entidades.Notebook;
 import br.edu.cs.poo.ac.utils.Registro;

@@ -22,6 +22,11 @@ public class Desktop extends Equipamento {
 		return getIdTipo() + getSerial();
 	}
 	
+	public static String getCodigo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	@Override
 	public String getId() {
 		return getIdTipo() + getSerial();

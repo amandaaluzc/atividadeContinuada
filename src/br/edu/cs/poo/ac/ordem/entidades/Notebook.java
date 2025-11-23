@@ -16,6 +16,7 @@ public class Notebook extends Equipamento{
 	}
 	
 	
+	@Override
 	public String getIdTipo() {
 		return "NO";
 	}

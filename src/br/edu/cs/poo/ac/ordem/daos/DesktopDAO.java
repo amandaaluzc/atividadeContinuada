@@ -4,8 +4,6 @@ import br.edu.cs.poo.ac.ordem.entidades.Desktop;
 import br.edu.cs.poo.ac.utils.Registro;
 
 
-//O identificador único, por objeto, de Desktop é a concatenação do retorno 
-//do método getTipo com o atributo serial.
 public class DesktopDAO extends DAOGenerico{
     @Override
     public Class<?> getClasseEntidade() {
@@ -24,8 +22,8 @@ public class DesktopDAO extends DAOGenerico{
         return super.alterar(entidade);
     }
 
-    public boolean excluir(Desktop desktop) {
-        return super.excluir(desktop);
+    public boolean excluir(String id) {
+        return super.excluir(id);
     }
 
     public Desktop[] buscarTodos() {

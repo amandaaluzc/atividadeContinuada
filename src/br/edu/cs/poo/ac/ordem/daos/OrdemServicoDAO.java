@@ -22,8 +22,8 @@ public class OrdemServicoDAO extends DAOGenerico{
         return super.alterar(entidade);
     }
 
-    public boolean excluir(OrdemServico ordemServico) {
-        return super.excluir(ordemServico);
+    public boolean excluir(String id) {
+        return super.excluir(id);
     }
 
     public OrdemServico[] buscarTodos() {

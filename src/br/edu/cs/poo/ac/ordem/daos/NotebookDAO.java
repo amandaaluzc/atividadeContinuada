@@ -4,8 +4,6 @@ import java.io.Serializable;
 import br.edu.cs.poo.ac.ordem.entidades.Notebook;
 import br.edu.cs.poo.ac.utils.Registro;
 
-//O identificador único, por objeto, de Notebook é a concatenação do retorno 
-//do método getTipo com o atributo serial.
 public class NotebookDAO extends DAOGenerico{
     @Override
     public Class<?> getClasseEntidade() {
@@ -24,8 +22,8 @@ public class NotebookDAO extends DAOGenerico{
         return super.alterar(note);
     }
 
-    public boolean excluir(Notebook note) {
-        return super.excluir(note);
+    public boolean excluir(String id) {
+        return super.excluir(id);
     }
 
     public Notebook[] buscarTodos() {

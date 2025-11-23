@@ -44,10 +44,9 @@ public abstract class DAOGenerico {
 		}
 	}
 	
-	public boolean excluir(Registro registro) {
-		String idRetorno = registro.getId();
-		if(buscar(idRetorno) != null) {
-			cadastroObjetos.excluir(idRetorno);
+	public boolean excluir(String id) {
+		if(buscar(id) != null) {
+			cadastroObjetos.excluir(id);
 			return true;
 		} else {
 			return false;

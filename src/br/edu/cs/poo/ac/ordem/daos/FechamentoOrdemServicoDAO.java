@@ -22,8 +22,8 @@ public class FechamentoOrdemServicoDAO extends DAOGenerico{
         return super.alterar(entidade);
     }
 
-    public boolean excluir(FechamentoOrdemServico fechamentoOrdemServico) {
-        return super.excluir(fechamentoOrdemServico);
+    public boolean excluir(String id) {
+        return super.excluir(id);
     }
 
     public FechamentoOrdemServico[] buscarTodos() {

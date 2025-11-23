@@ -17,8 +17,8 @@ public class ClienteDAO extends DAOGenerico {
 		return super.alterar(cliente);
 	}
 	
-	public boolean excluir(Cliente cliente) {
-		return super.excluir(cliente);
+	public boolean excluir(String id) {
+		return super.excluir(id);
 	}
 	
 	public Cliente[] buscarTodos() {
